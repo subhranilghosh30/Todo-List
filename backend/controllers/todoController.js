@@ -1,10 +1,9 @@
 const asyncHandler = require('express-async-handler')
 const ToDo=require('../models/todoModel')
 
-const getToDo = asyncHandler(async (req, res) => {
-  const todos = await ToDo.find({ user: req.user.id })
-
-  res.status(200).json(todos)
+const getToDo=asyncHandler(async(req, res) => {
+  const todos = await ToDo.find()
+  res.status(200).json({ todos })
 })
 
 const setToDo=asyncHandler(async(req, res) => {
@@ -13,8 +12,7 @@ const setToDo=asyncHandler(async(req, res) => {
     throw new Error('Please add ToDo')
   }
   const todo = await ToDo.create({
-    text: req.body.text,
-    user: req.user.id,
+    text: req.body.text
   })
   res.status(200).json(todo)
 })
