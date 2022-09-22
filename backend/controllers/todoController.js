@@ -13,7 +13,7 @@ const setToDo=asyncHandler(async(req, res) => {
 })
 
 const updateToDo=asyncHandler(async(req, res) => {
-res.status(200).json({ message: `Update ToDo ${req.params.id}` })
+res.status(200).json({ message: `UpdateToDo ${req.params.id}` })
 })
 
 const deleteToDo=asyncHandler(async(req, res) => {
