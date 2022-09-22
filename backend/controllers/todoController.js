@@ -3,6 +3,9 @@ const getToDo=(req, res) => {
 }
 
 const setToDo=(req, res) => {
+  if(req.body.text){
+    
+  }
   res.status(200).json({ message: 'Set Todo' })
 }
 
