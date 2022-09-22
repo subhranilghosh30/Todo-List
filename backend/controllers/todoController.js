@@ -31,7 +31,14 @@ res.status(200).json(updatedToDo)
 })
 
 const deleteToDo=asyncHandler(async(req, res) => {
-res.status(200).json({ message: `Delete ToDo ${req.params.id}` })
+  const todo = await ToDo.findById(req.params.id)
+
+  if(!todo){
+    res.status(400)
+    throw new Error('To Do not Found')
+  }
+  await todo.remove()
+res.status(200).json({ id: req.params.id })
 })
 
 module.exports={
