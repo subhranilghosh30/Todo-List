@@ -18,7 +18,7 @@ res.status(200).json({ message: `Update ToDo ${req.params.id}` })
 
 const deleteToDo=asyncHandler(async(req, res) => {
 res.status(200).json({ message: `Delete ToDo ${req.params.id}` })
-}
+})
 
 module.exports={
   getToDo,
