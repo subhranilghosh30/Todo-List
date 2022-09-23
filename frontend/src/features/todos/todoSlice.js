@@ -27,6 +27,24 @@ export const createToDo = createAsyncThunk(
   })
 
 
+//Get User To do
+export const getToDo = createAsyncThunk(
+  'todos/getAll', async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token
+      return await todoService.getToDo(token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  })
+
+
 
 
 export const todoSlice = createSlice({
@@ -45,13 +63,27 @@ export const todoSlice = createSlice({
      .addCase(createToDo.fulfilled, (state, action) => {
        state.isLoading = false
        state.isSuccess = true
-       state.goals.push(action.payload)
+       state.todos.push(action.payload)
      })
      .addCase(createToDo.rejected, (state, action) => {
        state.isLoading = false
        state.isError = true
        state.message = action.payload
      })
+
+     .addCase(getToDo.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getToDo.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.todos = action.payload
+      })
+      .addCase(getToDo.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
    },
 })
 
